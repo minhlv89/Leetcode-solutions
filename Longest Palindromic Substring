@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string findPalindrome(string s, int left, int right) {
+        while (left >= 0 && right < s.size() && s[left] == s[right]) {
+            left --;
+            right ++;
+        }
+        return s.substr(left + 1, right - left - 1);
+    }
+    
+    string longestPalindrome(string s) {
+        if (s.size() < 2) {
+            return s;
+        }
+        string result = "";
+        for (int i = 1; i < s.size(); i ++) {
+            string palind1 = findPalindrome(s, i - 1, i + 1);
+            string palind2 = findPalindrome(s, i - 1, i);
+            string longerPalind = (palind1.size() < palind2.size()) ? palind2 : palind1;
+            if (result.size() < longerPalind.size()) {
+                result = longerPalind;
+            }
+        }
+        return result;
+    }
+};
