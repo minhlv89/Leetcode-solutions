@@ -6,6 +6,36 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+
+/*Solution 1: Time O(m+n), Space O(1)*/
+
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        if (headA == NULL && headB == NULL) {
+            return NULL;
+        }
+        
+        ListNode* cur1 = headA;
+        ListNode* cur2 = headB;
+        while (cur1 != cur2) {
+            if (cur1 == NULL) {
+                cur1 = headB;
+            } else {
+                cur1 = cur1->next;
+            }
+            
+            if (cur2 == NULL) {
+                cur2 = headA;
+            } else {
+                cur2 = cur2->next;
+            }
+        }
+        return cur1;
+    }
+};
+
+ /*Solution 2: Time O(m+n), Space O(m)*/
 class Solution {
 public:
     ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
