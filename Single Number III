@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<int> singleNumber(vector<int>& nums) {
+        int sum = 0;
+        for (int num : nums) {
+            sum ^= num;
+        }
+        //lowBit is the lowest bit include 2 unique numbers
+        int lowBit = sum & (-sum);
+        vector<int> result;
+        int num1 = 0, num2 = 0;
+        for (int num : nums) {
+            //Group nums array into 2 groups, each group include 1 unique number
+            if (num & lowBit) {
+                num1 ^= num;
+            } else {
+                num2 ^= num;
+            }
+        }
+        result = {num1, num2};
+        
+        return result;
+    }
+};
