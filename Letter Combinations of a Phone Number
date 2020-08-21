@@ -1,0 +1,41 @@
+class Solution {
+public:
+    void letterCombinationsHelper(string comb, vector<vector<char>> digitStr, vector<string> &result, int s) {
+        if (comb.size() == s) {
+            result.push_back(comb);
+        } else {
+            for (int i = 0; i < digitStr.size(); i++) {
+                vector<vector<char>> newDigitStr(digitStr.begin()+i+1, digitStr.end());
+                for (int j = 0; j < digitStr[i].size(); j++) {
+                    string newComb = comb;
+                    newComb.push_back(digitStr[i][j]);
+                    letterCombinationsHelper(newComb, newDigitStr, result, s);
+                }
+            }
+        }
+    }
+    
+    vector<string> letterCombinations(string digits) {
+        if (digits.size() == 0) {
+            return {};
+        }
+        string comb;
+        vector<string> result;
+        vector<vector<char>> digitStr;
+        unordered_map<char, vector<char>> keyMap(
+            {{'2', {'a','b','c'}},
+             {'3', {'d','e','f'}},
+             {'4', {'g','h','i'}},
+             {'5', {'j','k','l'}},
+             {'6', {'m','n','o'}},
+             {'7', {'p','q','r','s'}},
+             {'8', {'t','u','v'}},
+             {'9', {'w','x','y','z'}}
+            });
+        for (char c : digits) {
+            digitStr.push_back(keyMap[c]);
+        }
+        letterCombinationsHelper(comb, digitStr, result, digits.size());
+        return result;
+    }
+};
