@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> result;
+        backtrack(result, "", 0, 0, n);
+        return result;
+    }
+    
+    void backtrack(vector<string> &result, string current, int open, int close, int max) {
+        if (current.size() == max*2) {
+            result.push_back(current);
+        } else {
+            if (open < max) {
+                string newCurrent = current;
+                newCurrent.push_back('(');
+                backtrack(result, newCurrent, open + 1, close, max);
+            }
+            if (close < open) {
+                string newCurrent = current;
+                newCurrent.push_back(')');
+                backtrack(result, newCurrent, open, close + 1, max);
+            }
+        }
+    }
+};
